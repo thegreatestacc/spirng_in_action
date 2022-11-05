@@ -36,24 +36,17 @@ public class DesignTacoController {
                 new Ingredient("SLSA", "Salsa", Type.SAUCE),
                 new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
 
-/*
-        var types = Type.values();
-
-        for (Type type : types) {
-            model.addAttribute(
-                    type.toString().toLowerCase(),
-                    filterByType(ingredients, type)
-            );
-            model.addAttribute("design", new Taco);
-*/
         return "design";
     }
 
     @PostMapping
     public String processDesign(@Valid Taco design, Errors errors) {
+        if (errors.hasErrors()) {
+            return "design";
+        }
         log.info("Processing design: " + design);
         return "redirect:/orders/current";
     }
-    
+
 
 }
